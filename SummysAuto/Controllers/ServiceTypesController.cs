@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SummysAuto.Data;
 using SummysAuto.Models;
 
@@ -34,6 +35,8 @@ namespace SummysAuto.Controllers
         /// <summary>
         /// Post ServiceTypes/Create
         /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ServiceType serviceType)
         {
             if (!ModelState.IsValid)
@@ -42,6 +45,19 @@ namespace SummysAuto.Controllers
             _db.Add(serviceType);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+
+        //ServiceTypes/Details/1
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var serviceType = await _db.ServiceTypes.SingleOrDefaultAsync(m => m.Id == id);
+            if (serviceType == null)
+                return NotFound();
+            return View(serviceType);
         }
 
 

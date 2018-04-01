@@ -6,36 +6,33 @@
 
 <br />
 <h2>Manage Service Types</h2>
-<hr/
+<hr />
 
 <div class="form-border">
     <p>
-        <a class="btn btn-sm btn-primary"  asp-action="Create">Create New</a>
+        <a class="btn btn-sm btn-primary" asp-action="Create">Create New</a>
     </p>
     <br />
 
     <table class="table table-hover table-condensed">
         <tr>
             <th>
-                @Html.DisplayNameFor(m => m.Name)
+                @Html.DisplayNameFor(m=>m.Name)
             </th>
-
             <th></th>
             <th></th>
         </tr>
-
         @foreach (var item in Model)
-        {
+        { 
             <tr>
                 <td>
-                    @Html.DisplayNameFor(m => m.Name)
+                    @Html.DisplayFor(m=>item.Name)
                 </td>
                 <td>
-                    EDIT |DELETE DETAILS
+                    @Html.Partial("_TableButtonPartial", new IndividualButtonPartial { ServiceId = item.Id})
                 </td>
             </tr>
 
         }
     </table>
 </div>
-
